@@ -1,0 +1,28 @@
+<html>
+<meta charset="utf-8">
+<title>React blog</title>
+
+<head>
+    <!-- Jquery-->
+    <script src="./js/jquery.min.js"></script>
+    <!-- MarkDown-->
+    <script src="./js/remarkable.min.js"></script>
+    <!--播放器-->
+    <link rel="stylesheet" href="./css/skPlayer.min.css" />
+    <script src="./js/skPlayer.min.js"></script>
+</head>
+
+<body>
+
+<div id="main"></div>
+<script type="text/javascript" src="./bundle.js" charset="utf-8"></script>
+
+<script type="text/javascript">
+    skPlayer({
+        music:534584459, //歌单id(登陆网页版网易云音乐，进入歌单详情后，在url中可找到歌单id，例：'http://music.163.com/#/playlist?id=317921676'),
+        theme:'red'
+    });
+</script>
+
+</body>
+</html>
