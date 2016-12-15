@@ -1,0 +1,129 @@
+* {
+    margin: 0px;
+}
+
+html, body {
+    height: 100%;
+}
+
+.nav-main {
+    background: -webkit-linear-gradient(left, #1FA8F4, #27DE86); /* Safari 5.1 - 6.0 */
+    background: -o-linear-gradient(right, #1FA8F4, #27DE86); /* Opera 11.1 - 12.0 */
+    background: -moz-linear-gradient(right, #1FA8F4, #27DE86); /* Firefox 3.6 - 15 */
+    background: linear-gradient(to right, #1FA8F4, #27DE86); /* 标准的语法（必须放在最后） */
+    color: #fafafa;
+    position: fixed;
+    top: 0;
+    left: 0;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    height: 50px;
+    padding: 0;
+    font-family: proxima-nova, "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
+    width: 100%;
+    z-index: 100;
+    box-sizing: border-box;
+    border: none;
+}
+
+.nav-main .wrap {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.nav-main .search-box {
+    float: right;
+    height: 53px;
+    padding-right: 40px;
+    right: 0;
+}
+
+.nav-main .search-box .text {
+    width: 100%;
+    height: 100%;
+    vertical-align: middle;
+}
+
+.nav-main .wrap ul {
+    float: left;
+    max-height: 53px;
+    vertical-align: top;
+}
+
+.nav-main .wrap ul li {
+    max-height: 53px;
+    line-height: 50px;
+
+}
+
+.nav-main .wrap ul li a {
+    height: 50px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    box-sizing: content-box;
+    display: inline-block;
+}
+
+.nav-main .wrap ul li:hover, .active {
+    color: #fafafa;
+    border-bottom: 3px solid #F76E23;
+    box-shadow: 0 3px 3px rgba(0, 0, 0, 0.5) inset;
+}
+
+@media screen and (min-width: 750px) {
+    .nav-main .wrap ul {
+        display: inline-flex;
+    }
+
+    .nav-main .wrap ul li {
+        padding: 0 5px 0 5px;
+        display: inline;
+    }
+
+    .nav-main .wrap ul li a {
+        max-width: 100%;
+    }
+}
+
+@media screen and (max-width: 750px) {
+    .nav-main {
+        position: relative;
+    }
+
+    .nav-main .wrap ul {
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+
+    .nav-main .wrap .active {
+        display: block;
+        color: #fafafa;
+        background: RGBA(46, 177, 224, 0.4);
+        border-bottom: 3px solid #F76E23;
+        box-shadow: none;
+        cursor: pointer;
+    }
+
+    .nav-main .wrap ul li {
+        display: none;
+        margin: 0;
+        padding: 0 10px;
+        background: RGBA(46, 177, 224, 0.6);
+        border-bottom: 3px;
+        border-bottom-style: solid;
+        border-bottom-color: #F76E23;
+    }
+
+    .nav-main .wrap ul li a {
+        max-width: 320px;
+        display: block;
+    }
+
+    .nav-main .wrap ul:hover li {
+        display: block;
+    }
+
+}
+
+

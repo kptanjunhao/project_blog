@@ -1,0 +1,16 @@
+.player {
+    max-height: 0px;
+    position: fixed;
+    right: 8px;
+    top: 56px;
+    width: 378px;
+    margin-right: auto;
+}
+
+@media screen and (max-width: 400px) {
+    .player {
+        left: 30px;
+        width: 378px;
+        margin-left: auto;
+    }
+}
