@@ -1,16 +1,40 @@
 .player {
     max-height: 0px;
     position: fixed;
-    right: 8px;
     top: 56px;
     width: 378px;
     margin-right: auto;
 }
 
-@media screen and (max-width: 400px) {
-    .player {
-        left: 30px;
-        width: 378px;
-        margin-left: auto;
-    }
+.player .controlButton{
+    display: block;
+    width: 50px;
+    height: 28px;
+    line-height: 28px;
+    border-radius: 15px;
+    position: absolute;
+    overflow: hidden;
+    z-index: 5;
+    -webkit-transform: translate(-50%, -50%);
+    background-color: #32AB3A;
+    color: #F2F2F2;
+    text-align: center;
+}
+
+.playerHide{
+    right: -408px;
+}
+
+.playerHide .controlButton{
+    left: -55px;
+    top: 10px;
+}
+
+.playerShow{
+    right: 8px;
+}
+
+.playerShow .controlButton{
+    top: 100px;
+    left: 0px;
 }
