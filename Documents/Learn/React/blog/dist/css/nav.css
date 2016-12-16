@@ -87,9 +87,6 @@ html, body {
 }
 
 @media screen and (max-width: 750px) {
-    .nav-main {
-        position: relative;
-    }
 
     .nav-main .wrap ul {
         position: absolute;
