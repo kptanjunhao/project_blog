@@ -1,6 +1,7 @@
 var React = require("react");
 var Clock = require('./clock');
 var CategoryBox = require('./categoryBox');
+var ArticlesBox = require('./articlesBox');
 
 var MainContent = React.createClass({
     render: function () {
@@ -11,6 +12,7 @@ var MainContent = React.createClass({
                 </div>
                 <div className='content-area'>
                     <CategoryBox />
+                    <ArticlesBox />
                 </div>
             </div>
         );

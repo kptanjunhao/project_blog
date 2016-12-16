@@ -26,6 +26,7 @@ var Clock = React.createClass({
     },
     render: function () {
         var style = {
+            right: 0,
             textAlign: 'center',
             fontSize: '64px'
         };
