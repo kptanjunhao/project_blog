@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PublishConfigData" serverName="project_blog" persistUploadOnCheckin="false">
+    <serverData>
+      <paths name="project_blog">
+        <serverdata>
+          <mappings>
+            <mapping deploy="https://github.com/kptanjunhao/project_blog.git" local="$PROJECT_DIR$" web="/project_blog.git" />
+          </mappings>
+        </serverdata>
+      </paths>
+    </serverData>
+  </component>
+</project>

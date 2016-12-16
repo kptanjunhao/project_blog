@@ -32,6 +32,7 @@ html, body {
 
 .nav-main .search-box {
     float: right;
+    line-height: 53px;
     height: 53px;
     padding-right: 40px;
     right: 0;

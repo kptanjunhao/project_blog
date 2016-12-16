@@ -1,0 +1,9 @@
+{
+  "name": "blog",
+  "version": "1.0.0",
+  "description": "just webpack and react hello world project!",
+  "scripts": {
+    "build": "webpack --progress --profile --colors",
+    "watch": "webpack-dev-server --port 63340 --content-base ./dist/"
+  }
+}
