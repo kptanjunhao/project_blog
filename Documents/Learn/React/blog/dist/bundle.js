@@ -23778,8 +23778,8 @@
 	    },
 	    render: function render() {
 	        var style = {
-	            webkitBoxShadow: 'inset 0 0 1px 1px rgba(0, 0, 0, 0.5)',
-	            mozBoxShadow: 'inset 0 0 1px 1px rgba(0, 0, 0, 0.5)',
+	            WebkitBoxShadow: 'inset 0 0 1px 1px rgba(0, 0, 0, 0.5)',
+	            MozBoxShadow: 'inset 0 0 1px 1px rgba(0, 0, 0, 0.5)',
 	            boxShadow: 'inset 0 0 1px 1px rgba(0, 0, 0, 0.5)',
 	            right: 0,
 	            textAlign: 'center',
@@ -23882,7 +23882,8 @@
 	"use strict";
 
 	var Config = {
-	    url: "http://localhost:8080/tan/"
+	    //url:"http://localhost:8080/tan/",
+	    url: "/"
 	};
 	module.exports = Config;
 

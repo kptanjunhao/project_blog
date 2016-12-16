@@ -38,3 +38,29 @@
     top: 100px;
     left: 0px;
 }
+
+@media screen and (max-width:400px){
+    .player{
+        -moz-transform:scale(0.5,0.5);
+        -webkit-transform:scale(0.5,0.5);
+        -o-transform:scale(0.5,0.5);
+    }
+
+    .playerHide{
+        right: -306px;
+    }
+
+    .playerHide .controlButton{
+        left: -55px;
+        top: 10px;
+    }
+
+    .playerShow{
+        right: -102px;
+    }
+
+    .playerShow .controlButton{
+        top: 100px;
+        left: 0px;
+    }
+}

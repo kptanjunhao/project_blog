@@ -17,7 +17,7 @@ html, body {
     left: 0;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
     height: 50px;
-    padding: 0;
+    margin: auto;
     font-family: proxima-nova, "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
     width: 100%;
     z-index: 100;
