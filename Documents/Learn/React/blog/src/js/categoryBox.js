@@ -10,7 +10,7 @@ var CategoryBox = React.createClass({
 
         return (
             <div style={style}>
-                CategoryBox
+                点击展开内容
             </div>
         );
     }
