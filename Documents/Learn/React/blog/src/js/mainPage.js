@@ -7,6 +7,7 @@ var MainContent = React.createClass({
     render: function () {
         return (
             <div>
+                <p style={{fontSize:'24px',marginTop:'-24px',textAlign:'center'}}>Hello World!</p>
                 <div className='sidebar-area'>
                     <Clock />
                 </div>

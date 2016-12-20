@@ -33,7 +33,7 @@ var Player = React.createClass({
                     src: track.mp3Url,
                     name: track.name,
                     author: track.artists[0].name,
-                    cover: track.artists[0].picUrl
+                    cover: track.album.picUrl
                 };
                 for(var attr in music){
                     if(music[attr]==null && status){
@@ -48,7 +48,7 @@ var Player = React.createClass({
             skPlayer({
                 music: musics,
                 //loop:true, //是否单曲循环，选填
-                theme:'red' //切换red主题，选填
+                //theme:'red' //切换red主题，选填
             });
          }
     },
@@ -65,7 +65,7 @@ var Player = React.createClass({
                 <div className="controlButton" onClick={this.handleHideOrShow}>
                     {this.state.playerHidden ? "Show" : "Hide"}
                 </div>
-                <div id="skPlayer"/>
+                <div id="skPlayer"><h1 style={{background:'#333',color:'#f2f2f2',paddingLeft:'45px',lineHeight:'100px',height:'100%',width:'100%'}}>音乐播放器加载失败</h1></div>
             </div>
         );
     }

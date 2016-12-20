@@ -2,7 +2,7 @@ var React = require('react');
 var Clock = React.createClass({
     getInitialState: function () {
         return {
-            time: ''
+            time: '',
         };
     },
     handleUpdateTime: function () {
@@ -22,7 +22,11 @@ var Clock = React.createClass({
         }
     },
     componentDidMount: function () {
-        setInterval(this.handleUpdateTime, 1000);
+        var tid = setInterval(this.handleUpdateTime, 1000);
+        this.setState({timerId:tid});
+    },
+    componentWillUnmount: function() {
+        clearTimeout(this.state.timerId);
     },
     render: function () {
         var style = {

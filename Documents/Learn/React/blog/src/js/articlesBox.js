@@ -25,8 +25,8 @@ var Article=React.createClass({
         var md = new Remarkable();
         return(
             <div>
-                <h2 onClick={this.handleClick}>{this.state.title}</h2>
-                <div style={{lineHeight:'none',paddingLeft:'12px',boxShadow:'inset 0 0 1px 1px'}} dangerouslySetInnerHTML={this.rawMarkup()} />
+                <h2 style={{marginRight:'12px',borderBottom:'1px solid #ccc'}} onClick={this.handleClick}>{this.state.title}</h2>
+                <div style={{lineHeight:'none',padding:'0 12px 0 12px',margin:'0 12px 0 12px',boxShadow:'inset 0 0 1px 1px'}} dangerouslySetInnerHTML={this.rawMarkup()} />
             </div>
         );
     }

@@ -50,20 +50,51 @@
 	var ReactDOM = __webpack_require__(32);
 	var Nav = __webpack_require__(178);
 	var MainContent = __webpack_require__(192);
-	var Player = __webpack_require__(197);
+	var PaintBoard = __webpack_require__(197);
+	var Player = __webpack_require__(198);
+
+	var Main = React.createClass({
+	    displayName: 'Main',
+
+	    getInitialState: function getInitialState() {
+	        return {
+	            title: '主页',
+	            content: React.createElement(MainContent, null)
+	        };
+	    },
+	    handleClick: function handleClick(title) {
+	        if (this.state.title == title) {
+	            return;
+	        } else {
+	            var content;
+	            if (title == '绘画板') {
+	                content = React.createElement(PaintBoard, null);
+	            } else {
+	                content = React.createElement(MainContent, null);
+	            }
+	            this.setState({
+	                title: title,
+	                content: content
+	            });
+	        }
+	    },
+	    render: function render() {
+	        return React.createElement(
+	            'div',
+	            null,
+	            React.createElement(Nav, { items: ['主页', 'Hello World!', '绘画板'], active: '\u4E3B\u9875', handleClick: this.handleClick }),
+	            React.createElement(Player, null),
+	            React.createElement(
+	                'div',
+	                { className: 'content' },
+	                this.state.content
+	            )
+	        );
+	    }
+	});
 
 	var blogLoad = function blogLoad() {
-	    ReactDOM.render(React.createElement(
-	        'div',
-	        null,
-	        React.createElement(Nav, { items: ['We Are The New World!', 'Hello World!', 'Index'], active: 'We Are The New World!' }),
-	        React.createElement(Player, null),
-	        React.createElement(
-	            'div',
-	            { className: 'content' },
-	            React.createElement(MainContent, null)
-	        )
-	    ), document.getElementById('main'));
+	    ReactDOM.render(React.createElement(Main, null), document.getElementById('main'));
 	};
 
 	blogLoad();
@@ -21509,6 +21540,7 @@
 	            active: title,
 	            show: !this.state.show
 	        });
+	        this.props.handleClick(title);
 	    },
 	    render: function render() {
 	        var itemNodes = this.props.items.map(function (title) {
@@ -23727,6 +23759,11 @@
 	            'div',
 	            null,
 	            React.createElement(
+	                'p',
+	                { style: { fontSize: '24px', marginTop: '-24px', textAlign: 'center' } },
+	                'Hello World!'
+	            ),
+	            React.createElement(
 	                'div',
 	                { className: 'sidebar-area' },
 	                React.createElement(Clock, null)
@@ -23774,7 +23811,11 @@
 	        }
 	    },
 	    componentDidMount: function componentDidMount() {
-	        setInterval(this.handleUpdateTime, 1000);
+	        var tid = setInterval(this.handleUpdateTime, 1000);
+	        this.setState({ timerId: tid });
+	    },
+	    componentWillUnmount: function componentWillUnmount() {
+	        clearTimeout(this.state.timerId);
 	    },
 	    render: function render() {
 	        var style = {
@@ -23807,6 +23848,7 @@
 
 	    render: function render() {
 	        var style = {
+	            color: '#aaa',
 	            textAlign: 'center',
 	            borderRight: '1px',
 	            borderRightColor: '#222',
@@ -23816,7 +23858,7 @@
 	        return React.createElement(
 	            'div',
 	            { style: style },
-	            'CategoryBox'
+	            '\u70B9\u51FB\u5C55\u5F00\u5185\u5BB9'
 	        );
 	    }
 	});
@@ -23834,11 +23876,36 @@
 	var Article = React.createClass({
 	    displayName: 'Article',
 
+	    getInitialState: function getInitialState() {
+	        return {
+	            title: this.props.article.title,
+	            content: this.props.article.content,
+	            text: ''
+	        };
+	    },
+	    handleClick: function handleClick() {
+	        var text = this.state.text == '' ? this.state.content : '';
+	        this.setState({
+	            text: text
+	        });
+	    },
+	    rawMarkup: function rawMarkup() {
+	        var md = new Remarkable();
+	        var rawMarkup = md.render(this.state.text.toString());
+	        //return { __html: rawMarkup };
+	        return { __html: this.state.text };
+	    },
 	    render: function render() {
+	        var md = new Remarkable();
 	        return React.createElement(
 	            'div',
 	            null,
-	            this.props.article.title
+	            React.createElement(
+	                'h2',
+	                { style: { marginRight: '12px', borderBottom: '1px solid #ccc' }, onClick: this.handleClick },
+	                this.state.title
+	            ),
+	            React.createElement('div', { style: { lineHeight: 'none', padding: '0 12px 0 12px', margin: '0 12px 0 12px', boxShadow: 'inset 0 0 1px 1px' }, dangerouslySetInnerHTML: this.rawMarkup() })
 	        );
 	    }
 	});
@@ -23868,7 +23935,7 @@
 	        });
 	        return React.createElement(
 	            'div',
-	            null,
+	            { style: { marginLeft: '10px', lineHeight: '32px' } },
 	            items
 	        );
 	    }
@@ -23882,13 +23949,158 @@
 	"use strict";
 
 	var Config = {
-	    //url:"http://localhost:8080/tan/",
-	    url: "/"
+	    url: "http://localhost:8080/tan/"
 	};
 	module.exports = Config;
 
 /***/ },
 /* 197 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var React = __webpack_require__(1);
+	var PaintBoard = React.createClass({
+	    displayName: 'PaintBoard',
+
+	    componentDidMount: function componentDidMount() {
+	        var mousePressed = false;
+	        var lastX, lastY;
+	        var ctx = document.getElementById('myCanvas').getContext("2d");
+
+	        $('#clearButton').mousedown(function (e) {
+	            clearArea();
+	        });
+
+	        $('#myCanvas').mousedown(function (e) {
+	            mousePressed = true;
+	            Draw(e.pageX - $(this).offset().left, e.pageY - $(this).offset().top, false);
+	        });
+
+	        $('#myCanvas').mousemove(function (e) {
+	            if (mousePressed) {
+	                Draw(e.pageX - $(this).offset().left, e.pageY - $(this).offset().top, true);
+	            }
+	        });
+
+	        $('#myCanvas').mouseup(function (e) {
+	            mousePressed = false;
+	        });
+	        $('#myCanvas').mouseleave(function (e) {
+	            mousePressed = false;
+	        });
+
+	        function Draw(x, y, isDown) {
+	            if (isDown) {
+	                ctx.beginPath();
+	                ctx.strokeStyle = $('#selColor').val();
+	                ctx.lineWidth = $('#selWidth').val();
+	                ctx.lineJoin = "round";
+	                ctx.moveTo(lastX, lastY);
+	                ctx.lineTo(x, y);
+	                ctx.closePath();
+	                ctx.stroke();
+	            }
+	            lastX = x;lastY = y;
+	        }
+
+	        function clearArea() {
+	            // Use the identity matrix while clearing the canvas
+	            ctx.setTransform(1, 0, 0, 1, 0, 0);
+	            ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+	        }
+	    },
+	    render: function render() {
+	        return React.createElement(
+	            'div',
+	            null,
+	            React.createElement('canvas', { id: 'myCanvas', width: '500', height: '200', style: { border: '2px solid #6699cc' } }),
+	            React.createElement(
+	                'div',
+	                null,
+	                React.createElement(
+	                    'button',
+	                    { id: 'clearButton' },
+	                    '\u6E05\u7A7A\u753B\u677F'
+	                ),
+	                'Line width : ',
+	                React.createElement(
+	                    'select',
+	                    { id: 'selWidth', defaultValue: '9' },
+	                    React.createElement(
+	                        'option',
+	                        { value: '1' },
+	                        '1'
+	                    ),
+	                    React.createElement(
+	                        'option',
+	                        { value: '3' },
+	                        '3'
+	                    ),
+	                    React.createElement(
+	                        'option',
+	                        { value: '5' },
+	                        '5'
+	                    ),
+	                    React.createElement(
+	                        'option',
+	                        { value: '7' },
+	                        '7'
+	                    ),
+	                    React.createElement(
+	                        'option',
+	                        { value: '9' },
+	                        '9'
+	                    ),
+	                    React.createElement(
+	                        'option',
+	                        { value: '11' },
+	                        '11'
+	                    )
+	                ),
+	                'Color : ',
+	                React.createElement(
+	                    'select',
+	                    { id: 'selColor', defaultValue: 'black' },
+	                    React.createElement(
+	                        'option',
+	                        { value: 'black' },
+	                        'black'
+	                    ),
+	                    React.createElement(
+	                        'option',
+	                        { value: 'blue' },
+	                        'blue'
+	                    ),
+	                    React.createElement(
+	                        'option',
+	                        { value: 'red' },
+	                        'red'
+	                    ),
+	                    React.createElement(
+	                        'option',
+	                        { value: 'green' },
+	                        'green'
+	                    ),
+	                    React.createElement(
+	                        'option',
+	                        { value: 'yellow' },
+	                        'yellow'
+	                    ),
+	                    React.createElement(
+	                        'option',
+	                        { value: 'gray' },
+	                        'gray'
+	                    )
+	                )
+	            )
+	        );
+	    }
+	});
+	module.exports = PaintBoard;
+
+/***/ },
+/* 198 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -23930,7 +24142,7 @@
 	                    src: track.mp3Url,
 	                    name: track.name,
 	                    author: track.artists[0].name,
-	                    cover: track.artists[0].picUrl
+	                    cover: track.album.picUrl
 	                };
 	                for (var attr in music) {
 	                    if (music[attr] == null && status) {
@@ -23943,9 +24155,7 @@
 	                }
 	            }
 	            skPlayer({
-	                music: musics,
-	                //loop:true, //是否单曲循环，选填
-	                theme: 'red' //切换red主题，选填
+	                music: musics
 	            });
 	        }
 	    },
@@ -23965,7 +24175,15 @@
 	                { className: 'controlButton', onClick: this.handleHideOrShow },
 	                this.state.playerHidden ? "Show" : "Hide"
 	            ),
-	            React.createElement('div', { id: 'skPlayer' })
+	            React.createElement(
+	                'div',
+	                { id: 'skPlayer' },
+	                React.createElement(
+	                    'h1',
+	                    { style: { background: '#333', color: '#f2f2f2', paddingLeft: '45px', lineHeight: '100px', height: '100%', width: '100%' } },
+	                    '\u97F3\u4E50\u64AD\u653E\u5668\u52A0\u8F7D\u5931\u8D25'
+	                )
+	            )
 	        );
 	    }
 	});

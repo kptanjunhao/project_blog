@@ -20,6 +20,7 @@ var Nav = React.createClass({
             active: title,
             show: !this.state.show,
         });
+        this.props.handleClick(title);
     },
     render: function(){
         var itemNodes = this.props.items.map(function(title){

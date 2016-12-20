@@ -2,6 +2,7 @@ var React = require('react');
 var CategoryBox = React.createClass({
     render: function () {
         var style = {
+            color:'#aaa',
             textAlign: 'center',
             borderRight: '1px',
             borderRightColor: '#222',

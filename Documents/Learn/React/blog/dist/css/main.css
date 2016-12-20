@@ -1,16 +1,20 @@
 .content{
     padding-top:50px;
+    background-color: #eee;
 }
 
 .content-area{
-    float: right;
+    background-color: #f3f3f3;
+    float: left;
     width: 70%;
+    border-right: 1px groove #f2f2f2;
 }
 
 .sidebar-area{
     padding: 30px 0 30px 0;
     float: right;
-    width: 30%;
+    width: 28%;
+    /*border-left: 1px solid #f2f2f2;*/
 }
 
 @media screen and (min-width: 750px) {
